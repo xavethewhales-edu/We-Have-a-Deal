@@ -1,0 +1,1157 @@
+/* === Reset + base styles === */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  color: white;
+  background-color: #000;
+}
+
+/* === Homepage layout === */
+#overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('Keep a conversation going.png') no-repeat center center fixed;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 80px;
+  text-align: center;
+  opacity: 1;
+}
+
+#overlay-content > div {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 40px 30px;
+  border-radius: 20px;
+}
+
+/* Subtitle text */
+#subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #f7c873;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+.button-group button {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffcc66;
+  border: 2px solid #00ffff;
+  padding: 14px 28px;
+  font-size: 1rem;
+  margin: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 6px #ffcc66;
+}
+
+.button-group button:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: #ffffff;
+  text-shadow: 0 0 8px #ffffff;
+}
+
+/* === Game Scene === */
+#game-container {
+  background-color: #0b0c10;
+  padding: 40px 20px;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: block; /* or none when hidden */
+  overflow: visible; /* keep container visible without scroll */
+  position: relative; /* for any absolute children positioning */
+  max-width: 1200px; /* optional, to constrain width on large screens */
+  margin: 0 auto; /* center container horizontally */
+}
+
+
+
+
+/* Scene image */
+#scene-image img {
+  max-width: 100%;
+  max-height: 20vh;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+/* Main scene text */
+#scene-text {
+  font-size: 1.8rem;
+  line-height: 1.4;
+  margin: 20px auto;
+  max-width: 700px;
+  text-align: left;
+}
+
+/* Scramble challenge */
+#sentence-scramble {
+  margin-top: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.scramble-instructions {
+  color: #ffe58a;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.scramble-word {
+  display: inline-block;
+  background: #222;
+  color: #fff;
+  padding: 8px 12px;
+  margin: 6px 6px 6px 0;
+  border-radius: 6px;
+  border: 1px solid #555;
+  font-size: 1rem;
+  cursor: move;
+}
+.scramble-sentence {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: move;
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #222222;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.scramble-sentence:hover {
+  background-color: #f0f0f0;
+}
+
+#scramble-feedback {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+/* Fix for fill-in-the-blank blank styling */
+.fill-blank-dropzone {
+  border-bottom: 2px solid #00ffff;
+  min-width: 80px;
+  display: inline-block;
+  vertical-align: bottom;
+  padding: 4px 6px;
+  cursor: pointer;
+  background-color: #111;
+}
+
+.fill-blank-dropzone:empty::before {
+  content: "";  /* Empty content, no underscore */
+  display: inline-block;
+  width: 80px;  /* Keep blank space */
+  height: 1em;
+}
+
+
+.fill-blank-option {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 2px solid #00ffff;
+  background: #000;
+  color: #0ff;
+  font-weight: bold;
+  cursor: grab;
+  user-select: none;
+  margin: 4px 4px 4px 0;
+  white-space: nowrap;
+}
+
+
+/* Fix selector: add dot if this is a class */
+.fill-blank-text {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 4px;
+}
+
+
+
+/* === Scene 2 – Email & Chat === */
+.email-box {
+  background-color: #1c1f26;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: #eaeaea;
+}
+
+.email-box strong {
+  color: #f7c873;
+}
+
+.chat-message {
+  background-color: #262932;
+  padding: 12px 18px;
+  margin: 10px 0 30px;
+  border-left: 4px solid #00ffff;
+  border-radius: 8px;
+  font-style: italic;
+  font-size: 1rem;
+  max-width: 600px;
+  color: #c0c0c0;
+}
+
+/* Decision buttons */
+.decision-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.decision-buttons button {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffcc66;
+  border: 2px solid #00ffff;
+  padding: 12px 24px;
+  font-size: 1rem;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 6px #ffcc66;
+}
+
+.decision-buttons button:hover {
+  background-color: rgba(0, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: #ffffff;
+  text-shadow: 0 0 2px #ffffff;
+}
+
+/* === Animation Keyframes === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.screen-frame {
+  background-color: #1f1f1f;
+  border: 3px solid #888;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  font-family: "Courier New", monospace;
+  color: #f0f0f0;
+}
+
+.screen-frame .scramble-word {
+  display: block;
+  background-color: #2c2c2c;
+  border: 1px solid #666;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 6px 0;
+  cursor: grab;
+  user-select: none;
+}
+/* default scene image behavior */
+#scene-image {
+  text-align: center;
+  margin-bottom: 20px;
+}
+#scene-image img { max-height: 40vh; }
+#scene-image img.narrative { max-height: 60vh; }
+
+
+/* full-screen image only when body has .scene4A1-active */
+body.scene4A1-active #scene-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+.scramble-word {
+  display: inline-block;
+  background: #222;
+  color: #fff;
+  padding: 8px 12px;
+  margin: 6px 6px 6px 0;
+  border-radius: 6px;
+  border: 1px solid #555;
+  font-size: 1rem;
+  cursor: move;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+}
+/* Style for all scene 7 email blocks */
+.scene7-email-block {
+  max-width: 700px;
+  margin: 30px auto;
+  background-color: #1c1f26;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  color: #eaeaea;
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+/* Make input fields and textareas full width and nicely spaced */
+.scene7-email-block input[type="email"],
+.scene7-email-block input[type="text"],
+.scene7-email-block textarea {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 8px 0 15px 0;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #222;
+  color: #eee;
+  font-size: 1rem;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the Send Email button */
+.scene7-email-block button {
+  background-color: #00ffff;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin: 0 auto;
+}
+
+.scene7-email-block button:hover {
+  background-color: #00cccc;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .scene7-email-block {
+    padding: 15px 20px;
+    max-width: 90%;
+  }
+
+  .scene7-email-block button {
+    max-width: 100%;
+  }
+}
+#scene-container button {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 1000 !important;
+  margin-top: 20px;
+}
+
+#play-again {
+  display: block; /* Ensure it’s visible */
+  position: fixed; /* Stay visible even if the page scrolls */
+  bottom: 20px;    /* 20px from bottom of viewport */
+  left: 50%;       /* Horizontally centered */
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #0ff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10000;  /* Make sure it’s above other elements */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+#scene-container {
+  min-height: 100px;
+  padding: 10px;
+  background: rgba(0,0,0,0.05); /* Light background to see the box */
+}
+#scene-video {
+  max-width: 100%;
+  max-height: 360px;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 12px;
+  background-color: black;
+}
+
+#video-question-ui {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #eee;
+}
+
+#video-question-ui button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  font-weight: bold;
+  background-color: #00ffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#video-question-ui button:hover {
+  background-color: #00cccc;
+}
+/* Narrative size for image-led tasks */
+#scene-image img.narrative { max-height: 65vh; }
+
+/* Hover-to-reveal: unblur on hover */
+#scene-image img.hover-unblur { filter: blur(3px); transition: filter .25s ease; }
+#scene-image img.hover-unblur:hover { filter: blur(0); }
+
+/* Hover zoom for close inspection */
+#scene-image img.hover-zoom { transition: transform .25s ease; }
+#scene-image img.hover-zoom:hover { transform: scale(1.12); }
+
+/* Black & white → color on hover */
+#scene-image img.bw { filter: grayscale(100%); transition: filter .3s ease; }
+#scene-image img.bw:hover { filter: grayscale(0%); }
+
+/* === Image challenge effects (drop once, ideally near end of your CSS) === */
+
+/* Base sizing (keep or tweak if you already have this) */
+#scene-image img {
+  max-height: 40vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+/* Larger “narrative” images (opt-in via imageClass:"narrative") */
+#scene-image img.narrative { max-height: 65vh; }
+
+/* Hover-to-reveal (blur -> sharp) */
+#scene-image img.hover-unblur { filter: blur(3px); transition: filter .25s ease; }
+#scene-image img.hover-unblur:hover { filter: blur(0); }
+
+/* Hover zoom for inspection */
+#scene-image img.hover-zoom { transition: transform .25s ease; }
+#scene-image img.hover-zoom:hover { transform: scale(1.12); }
+
+/* Black & white -> color on hover */
+#scene-image img.bw { filter: grayscale(100%); transition: filter .3s ease; }
+#scene-image img.bw:hover { filter: grayscale(0%); }
+
+/* Subtle attention pulse */
+@keyframes imgPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+#scene-image img.pulse { animation: imgPulse 1.8s ease-in-out infinite; }
+
+/* Ken Burns (slow pan/zoom) */
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.1) translate(-2%, -2%); }
+  100% { transform: scale(1.2) translate(2%, 2%); }
+}
+#scene-image img.kenburns { animation: kenBurns 16s ease-in-out infinite alternate; }
+
+/* Quick shake (use on “wrong” screens) */
+@keyframes imgShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+#scene-image img.shake { animation: imgShake 400ms ease; }
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #scene-image img { animation: none !important; transform: none !important; }
+}
+
+/* === BGM toggle button (homepage) === */
+#bgm-toggle {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 10000;
+  background: #00ffff;
+  color: #000;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 18px #0008;
+}
+#bgm-toggle.off {
+  background: #222;
+  color: #0ff;
+  border: 1px solid #0ff;
+}
+#bgm-toggle:hover { filter: brightness(0.9); }
+
+/* === Brand Splash (one-tap to start music) === */
+#splash-intro {
+  position: fixed; inset: 0; z-index: 99999;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(60% 60% at 20% 30%, #00ffff22, transparent 60%),
+    radial-gradient(50% 50% at 80% 70%, #ff00ff1a, transparent 60%),
+    linear-gradient(120deg, #0a0f14, #080a0a);
+  transition: opacity .6s ease;
+}
+#splash-intro.hide { opacity: 0; pointer-events: none; }
+
+#splash-card {
+  width: min(560px, 92vw);
+  padding: 28px;
+  background: #0a0a0a;
+  border: 1px solid #00ffff33;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px #000a;
+  text-align: center;
+  color: #e8f9ff;
+}
+#splash-title {
+  font: 800 28px/1.2 system-ui, Segoe UI, Arial;
+  color: #0ff;
+  letter-spacing: .03em;
+  margin-bottom: 10px;
+}
+#splash-sub { opacity: .9; margin-bottom: 18px; }
+#splash-enter {
+  border: none; border-radius: 999px; cursor: pointer;
+  padding: 12px 20px; font-weight: 800;
+  background: #00ffff; color: #000;
+}
+#splash-enter:hover { filter: brightness(.92); }
+#splash-hint { font-size: 12px; opacity: .7; margin-top: 10px; }
+
+/* Brand Splash */
+#splash-intro{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;
+  background:
+    radial-gradient(60% 60% at 20% 30%, #00ffff22, transparent 60%),
+    radial-gradient(50% 50% at 80% 70%, #ff00ff1a, transparent 60%),
+    linear-gradient(120deg,#0a0f14,#080a0a);
+  transition:opacity .6s ease}
+#splash-intro.hide{opacity:0;pointer-events:none}
+#splash-card{width:min(680px,92vw);padding:28px;background:#0a0a0a;
+  border:1px solid #00ffff33;border-radius:16px;box-shadow:0 20px 60px #000a;
+  text-align:center;color:#e8f9ff}
+#splash-logo{width:min(300px,60%);max-height:160px;object-fit:contain;margin:0 auto 14px;display:block}
+#splash-title{font:800 28px/1.2 system-ui,Segoe UI,Arial;color:#0ff;letter-spacing:.03em;margin-bottom:6px}
+#splash-sub{opacity:.9;margin-bottom:18px}
+#splash-meta{opacity:.8;font-size:12px;margin-top:10px}
+#splash-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.splash-btn{border:none;border-radius:999px;cursor:pointer;padding:12px 18px;font-weight:800}
+.splash-btn.primary{background:#00ffff;color:#000}
+.splash-btn.secondary{background:#222;color:#0ff;border:1px solid #0ff}
+.splash-btn:hover{filter:brightness(.92)}
+#splash-music{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px;font-size:14px;opacity:.9}
+
+#brand-block {
+  text-align: center;
+  padding: 24px 16px;
+}
+#brand-logo {
+  max-width: min(520px, 80vw);
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 0 0 rgba(0,255,255,0.0);
+}
+#brand-tagline {
+  margin-top: 12px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  color: #eee;
+  opacity: .9;
+}
+#brand-start {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #00ffff;
+  color: #000;
+  font-weight: 800;
+  cursor: pointer;
+}
+#brand-start:hover { background: #00cccc; }
+
+/* optional very subtle glow (remove if you want fully plain) */
+#brand-logo { filter: drop-shadow(0 0 18px rgba(0,255,255,.12)); }
+
+.speech-panel[hidden]{ display:none !important; }
+.speech-hud[hidden]{   display:none !important; }
+.speech-hud   { z-index: 4000; }
+.speech-panel { z-index: 5000; }
+
+.choice-flash { box-shadow: 0 0 0 3px rgba(0,255,200,.6) inset; transition: box-shadow .25s ease; }
+
+.mc-locked [role="button"], .mc-locked button { pointer-events:none; opacity:.55; }
+
+/* Hide speech settings UI everywhere, keep speak buttons visible */
+#speech-settings,
+#speech-settings-panel,
+#speech-settings-popover,
+#speech-hud,
+#speech-hud-panel,
+#speech-gear,
+#speech-gear-btn,
+#speech-settings-btn,
+#speech-enabled,
+#speech-enabled-checkbox,
+#speech-lang,
+#speech-tol,
+label[for="speech-enabled-checkbox"],
+.speech-settings,
+.speech-hud,
+.speech-gear,
+.speech-config,
+/* generic: any element whose id/class includes both 'speech' and 'setting' */
+[id*="speech"][id*="setting"],
+[class*="speech"][class*="setting"] {
+  display: none !important;
+}
+
+/* Make sure speak buttons are NOT hidden */
+.speech-btn,
+#mc-speak-btn,
+#scramble-speak-btn,
+#hm-mic,
+#hangman-speak-btn,
+#floating-mc-mic {
+  display: inline-flex !important;
+}
+/* Hide any "Test Mic" controls */
+#speech-test,
+#speech-test-btn,
+#test-mic,
+#mic-test,
+.speech-test,
+.mic-test,
+/* generic catch-alls */
+[id*="speech"][id*="test"],
+[class*="speech"][class*="test"],
+[id*="mic"][id*="test"],
+[class*="mic"][class*="test"] {
+  display: none !important;
+}
+
+/* Keep actual in-scene Speak buttons visible */
+.speech-btn,
+#mc-speak-btn,
+#scramble-speak-btn,
+#hm-mic,
+#hangman-speak-btn,
+#floating-mc-mic {
+  display: inline-flex !important;
+}
+
+/* A-State — synthwave upgrade for the Continue button */
+.continue-button,
+#continue-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* keeps glow effect nicely clipped */
+}
+
+/* soft neon outline pulse */
+.continue-button::before,
+#continue-button::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 180deg,
+    rgba(255, 90, 241, 0.0),
+    rgba(255, 90, 241, 0.6),
+    rgba(63, 140, 255, 0.0),
+    rgba(63, 140, 255, 0.7),
+    rgba(255, 90, 241, 0.0)
+  );
+  opacity: 0.0;
+  z-index: -1;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+
+/* subtle sheen across the top */
+.continue-button::after,
+#continue-button::after {
+  content: "";
+  position: absolute;
+  left: -40%;
+  right: -40%;
+  top: 0;
+  height: 55%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0.02)
+  );
+  mix-blend-mode: screen;
+  opacity: 0.0;
+  transform: translateX(-30%);
+  transition:
+    opacity 200ms ease,
+    transform 600ms ease;
+  pointer-events: none;
+}
+
+/* hover: bring the glow + sheen in */
+.continue-button:hover::before,
+#continue-button:hover::before {
+  opacity: 0.9;
+}
+
+.continue-button:hover::after,
+#continue-button:hover::after {
+  opacity: 1.0;
+  transform: translateX(10%);
+}
+
+/* A-State — 80s synthwave CORRECT / WRONG feedback upgrade */
+
+/* base feedback chip */
+#scramble-feedback,
+#fill-feedback,
+#feedback {
+  position: relative;
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- CORRECT: neon systems-online blast ---------- */
+
+#scramble-feedback.correct,
+#fill-feedback.correct,
+#feedback.correct {
+  color: #9affff;
+  background: rgba(20, 40, 60, 0.9);
+  border: 1px solid rgba(154, 255, 255, 0.7);
+  text-shadow:
+    0 0 4px rgba(154, 255, 255, 0.7),
+    0 0 12px rgba(154, 255, 255, 0.7);
+  box-shadow:
+    0 0 10px rgba(154, 255, 255, 0.5),
+    0 0 32px rgba(0, 220, 200, 0.6);
+  animation:
+    astateCorrectPulse 420ms ease-out,
+    astateCorrectGlow 1600ms ease-out 420ms forwards;
+}
+
+/* expanding ring behind the text */
+#scramble-feedback.correct::before,
+#fill-feedback.correct::before,
+#feedback.correct::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1px solid rgba(154, 255, 255, 0.8);
+  box-shadow: 0 0 20px rgba(154, 255, 255, 0.7);
+  opacity: 0;
+  transform: scale(0.7);
+  pointer-events: none;
+  animation: astateCorrectRing 420ms ease-out;
+}
+
+@keyframes astateCorrectPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes astateCorrectRing {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  60% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes astateCorrectGlow {
+  0% {
+    box-shadow:
+      0 0 10px rgba(154, 255, 255, 0.5),
+      0 0 32px rgba(0, 220, 200, 0.6);
+  }
+  100% {
+    box-shadow:
+      0 0 4px rgba(154, 255, 255, 0.3),
+      0 0 12px rgba(0, 220, 200, 0.4);
+  }
+}
+
+/* ---------- WRONG: glitchy error ping ---------- */
+
+#scramble-feedback.incorrect,
+#fill-feedback.incorrect,
+#feedback.incorrect {
+  color: #ff96b8;
+  background: rgba(40, 16, 32, 0.9);
+  border: 1px solid rgba(255, 150, 184, 0.7);
+  text-shadow:
+    0 0 4px rgba(255, 150, 184, 0.7),
+    -2px 0 8px rgba(255, 0, 120, 0.7);
+  box-shadow:
+    0 0 10px rgba(255, 80, 140, 0.5),
+    0 0 28px rgba(255, 0, 120, 0.5);
+  animation: astateIncorrectGlitch 260ms ease-out;
+}
+
+/* little horizontal “scan” bar */
+#scramble-feedback.incorrect::before,
+#fill-feedback.incorrect::before,
+#feedback.incorrect::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: 45%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 150, 184, 0.8),
+    transparent
+  );
+  opacity: 0;
+  pointer-events: none;
+  animation: astateIncorrectScan 260ms ease-out;
+}
+
+@keyframes astateIncorrectGlitch {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-3px); }
+  40%  { transform: translateX(3px); }
+  60%  { transform: translateX(-2px); }
+  80%  { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes astateIncorrectScan {
+  0%   { opacity: 0.0; transform: translateX(-10%); }
+  40%  { opacity: 1.0; transform: translateX(0); }
+  100% { opacity: 0.0; transform: translateX(10%); }
+}
+
+
+/* ===========================
+   A-State — noticeable CORRECT / WRONG FX
+   =========================== */
+
+/* Smooth base for the card */
+#game-container {
+  position: relative;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+/* Shared top HUD bar (inactive by default) */
+#game-container::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: transparent;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* -------------------
+   CORRECT: cyan / teal boost
+   ------------------- */
+
+#game-container:has(#scramble-feedback.correct,
+                    #fill-feedback.correct,
+                    #feedback.correct) {
+  transform: scale(1.01);
+  box-shadow:
+    0 0 40px rgba(0, 255, 200, 0.45),
+    0 0 80px rgba(80, 180, 255, 0.35);
+  filter: saturate(1.05);
+}
+
+/* top HUD bar for correct */
+#game-container:has(#scramble-feedback.correct,
+                    #fill-feedback.correct,
+                    #feedback.correct)::before {
+  opacity: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 200, 0.0),
+    rgba(0, 255, 200, 0.9),
+    rgba(80, 160, 255, 0.9),
+    rgba(0, 255, 200, 0.0)
+  );
+  animation: astateHudSweepCorrect 900ms ease-out;
+}
+
+/* optional: make the correct label itself pop a bit */
+#scramble-feedback.correct,
+#fill-feedback.correct,
+#feedback.correct {
+  color: #9affff;
+  text-shadow:
+    0 0 6px rgba(154, 255, 255, 0.9),
+    0 0 16px rgba(0, 200, 200, 0.7);
+}
+
+/* -------------------
+   INCORRECT: magenta glitch
+   ------------------- */
+
+#game-container:has(#scramble-feedback.incorrect,
+                    #fill-feedback.incorrect,
+                    #feedback.incorrect) {
+  animation: astateContainerShake 260ms ease-out;
+  box-shadow:
+    0 0 28px rgba(255, 60, 140, 0.6),
+    0 0 60px rgba(255, 0, 140, 0.35);
+}
+
+/* top HUD bar for wrong */
+#game-container:has(#scramble-feedback.incorrect,
+                    #fill-feedback.incorrect,
+                    #feedback.incorrect)::before {
+  opacity: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 128, 0.0),
+    rgba(255, 120, 184, 0.95),
+    rgba(255, 0, 128, 0.95),
+    rgba(255, 0, 128, 0.0)
+  );
+  animation: astateHudSweepWrong 260ms ease-out;
+}
+
+/* -------------------
+   Keyframes
+   ------------------- */
+
+@keyframes astateHudSweepCorrect {
+  0% {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+}
+
+@keyframes astateHudSweepWrong {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+  40% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+}
+
+@keyframes astateContainerShake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-4px); }
+  40%  { transform: translateX(4px); }
+  60%  { transform: translateX(-3px); }
+  80%  { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+/* A-State — scene transition (monitor refresh) */
+
+/* ================================
+   A-State — pharma scene intro
+   Elements enter in sequence
+   ================================ */
+
+/* Panel itself: small, clean appear */
+#game-container.scene-enter {
+  animation: pharmaPanelAppear 200ms ease-out;
+}
+
+@keyframes pharmaPanelAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px) brightness(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0) brightness(1);
+  }
+}
+
+/* 1) Scene image: drops in first */
+#game-container.scene-enter .scene-image,
+#game-container.scene-enter #scene-image {
+  animation: pharmaImageIn 260ms ease-out both;
+}
+
+@keyframes pharmaImageIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+    filter: blur(3px) saturate(1.1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) scale(1.02);
+    filter: blur(0.7px) saturate(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0) saturate(1);
+  }
+}
+
+/* 2) Main text block: fades in with a diagnostic "scan" */
+#game-container.scene-enter .scene-text,
+#game-container.scene-enter #scene-text,
+#game-container.scene-enter .scene-body {
+  animation: pharmaTextIn 280ms ease-out 70ms both;
+}
+
+@keyframes pharmaTextIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+    letter-spacing: 0.18em;
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.08em;
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* 3) Challenge / interaction area (scramble / fill / email) */
+#game-container.scene-enter #sentence-scramble,
+#game-container.scene-enter .scramble-container,
+#game-container.scene-enter .fill-in-container,
+#game-container.scene-enter .email-challenge,
+#game-container.scene-enter #interaction-area {
+  animation: pharmaWidgetIn 260ms ease-out 110ms both;
+}
+
+@keyframes pharmaWidgetIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* 4) Choices: pills appear one by one like options on a console */
+#game-container.scene-enter #choices-container button {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: pharmaChoiceIn 220ms ease-out both;
+}
+
+/* stagger the choices with nth-child */
+#game-container.scene-enter #choices-container button:nth-child(1) {
+  animation-delay: 120ms;
+}
+#game-container.scene-enter #choices-container button:nth-child(2) {
+  animation-delay: 170ms;
+}
+#game-container.scene-enter #choices-container button:nth-child(3) {
+  animation-delay: 220ms;
+}
+#game-container.scene-enter #choices-container button:nth-child(4) {
+  animation-delay: 270ms;
+}
+
+@keyframes pharmaChoiceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(1px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}

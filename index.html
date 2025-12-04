@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<!-- Built by xavethewhales-games · (c) 2025 -->
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <base href="./" />
+
+  <!-- ADDED: SCORM close guard (must be first) -->
+  <script src="scorm_close_guard.js"></script>
+
+<script>
+/* Anti-mirror + frame-buster — SCORM-safe */
+(function () {
+  // Detect SCORM (API object in this or any ancestor), or ?scorm=1, or scorm.com host
+  function hasScormAPI(win){
+    var hops = 0;
+    try {
+      while (win && hops++ < 10) {
+        if (win.API || win.API_1484_11) return true;
+        if (win === win.parent) break;
+        win = win.parent;
+      }
+    } catch(_) {}
+    return false;
+  }
+  var isScorm = /(?:^|[?&])scorm=1(?:&|$)/.test(location.search)
+             || hasScormAPI(window)
+             || /\.scorm\.com$/i.test(location.hostname);
+
+  if (isScorm) {
+    // IMPORTANT: do NOT frame-bust or redirect in SCORM
+    return;
+  }
+
+  // Your normal web guard (GitHub Pages etc.)
+  const CANON_HOST = "xavethewhales-edu.github.io";
+  const CANON_REPO = "REPO_SLUG_HERE"; // e.g., keep-a-conversation-going
+  const ALLOW = new Set([CANON_HOST, "localhost", "127.0.0.1"]);
+
+  try {
+    // Frame-bust only on the public web, not in SCORM
+    if (top !== self) { top.location = location; return; }
+
+    if (!ALLOW.has(location.hostname)) {
+      location.replace(
+        "https://" + CANON_HOST + "/" + CANON_REPO + "/" +
+        location.search + location.hash
+      );
+    }
+  } catch(_) {}
+})();
+</script>
+
+  <title>we Have a Deal! </title>
+  <link rel="stylesheet" href="style.css?v=2025-09-05-1" />
+
+  <style>
+    .scramble-sentence {
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      margin-bottom: 8px;
+      border-radius: 6px;
+      cursor: move;
+      font-size: 1rem;
+    }
+    #scene-image img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Homepage Overlay -->
+  <div id="overlay-content">
+    <div>
+      <p id="subtitle">Get the job done!</p>
+      <div class="button-group">
+        <button onclick="startGame()">Play Now</button>
+        <button id="resume-btn" disabled>Resume game</button>
+
+        <button onclick="window.open('https://xavier-b.carrd.co/', '_blank')">About the Creator</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Container -->
+  <div id="game-container" style="display: none;">
+    <div id="scene-image"></div>
+    <div id="scene-text"></div>
+    <div id="challenge-info" style="margin-bottom: 20px; font-family: monospace; background: #111; color: #0ff; padding: 10px; border-radius: 5px;"></div>
+
+    <div id="sentence-scramble" style="display:none;"></div>
+    <div id="scramble-feedback" style="display:none;"></div>
+    <div id="scene6-ui"></div>
+    <div id="sceneFillInTheBlank"></div>
+    <div id="choices-container" class="decision-buttons"></div>
+    <div id="scene-container"></div>
+    <div id="email-challenge-container"></div>
+
+    <!-- Speech Controls (HUD) -->
+<div id="speech-hud" class="speech-hud" aria-live="polite">
+  <button id="speech-toggle" class="speech-btn" title="Toggle Speech">🎤 Off</button>
+  <button id="speech-settings-btn" class="speech-btn" title="Speech Settings">⚙️</button>
+  <span id="speech-status" class="speech-chip" hidden>Listening…</span>
+  <span id="speech-transcript" class="speech-chip" hidden></span>
+</div>
+
+<!-- Slide-over Settings -->
+<div id="speech-settings" class="speech-panel" hidden>
+  <div class="speech-panel-inner">
+    <h3>Speech Settings</h3>
+
+    <div class="row">
+      <label>Enable Speech</label>
+      <label class="switch">
+        <input id="speech-enabled-checkbox" type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="row">
+      <label for="speech-lang">Language</label>
+      <select id="speech-lang">
+        <option value="en-US">English (US)</option>
+        <option value="en-GB">English (UK)</option>
+        <option value="es-ES">Español (ES)</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="speech-tolerance">Tolerance: <span id="speech-tolerance-value">0.80</span></label>
+      <input id="speech-tolerance" type="range" min="0.50" max="0.98" step="0.01" value="0.80">
+    </div>
+
+    <div class="row presets">
+      <button data-preset="strict" class="preset">Strict (0.92)</button>
+      <button data-preset="normal" class="preset">Normal (0.80)</button>
+      <button data-preset="lenient" class="preset">Lenient (0.65)</button>
+    </div>
+
+    <div class="row">
+      <button id="speech-close" class="speech-btn">Close</button>
+    </div>
+  </div>
+</div>
+<!-- Student Mode toggle -->
+<div class="speech-row" style="margin-top:8px">
+  <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer">
+    <input id="speech-student-mode" type="checkbox">
+    <span>Student mode (accent-friendly)</span>
+  </label>
+  <div style="font-size:.85rem;opacity:.8;margin-left:1.6rem">
+    Softer matching with common ASR fixes and keyword boosts.
+  </div>
+</div>
+
+
+
+    <!-- ... -->
+  </div> <!-- close game-container -->
+
+  <!-- Sortable.js and Game Script -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+
+  <script src="script.js?v=scorm-fix5"></script>
+
+
+
+  <script>
+  /* Asset path helper: strips a leading "/" to keep relative URLs valid on GitHub Pages */
+  function asRel(p){ return (typeof p === "string") ? p.replace(/^\//,"") : p; }
+</script>
+
+  <script>
+(function () {
+  const SAVE_KEY = 'game_progress_v1';
+  const RESUME_FALLBACK = 'scene1'; // change if your safe hub is different
+
+  const $   = s => document.querySelector(s);
+  const $id = s => document.getElementById(s);
+
+  function mountInlineVideo(opts) {
+  const {container, src, onEnded} = opts;
+  const wrap = document.createElement('div');
+  wrap.style.cssText = "max-width:800px;margin:0 auto 16px;";
+  container.appendChild(wrap);
+
+  const video = document.createElement('video');
+  video.id = 'scene-video';
+  video.src = src;               // **relative path** (no leading /)
+  video.controls = true;
+  video.preload = 'metadata';
+  video.setAttribute('playsinline','');
+  video.setAttribute('webkit-playsinline','');
+  video.style.cssText = "width:100%;max-height:360px;border-radius:12px;background:#000;";
+  wrap.appendChild(video);
+
+  // Big “Tap to play” button (never autoplay)
+  const gate = document.createElement('button');
+  gate.textContent = "Tap to play video";
+  gate.style.cssText = "margin-top:10px;padding:10px 16px;font-weight:700;border:none;border-radius:10px;background:#00ffff;color:#000;cursor:pointer";
+  wrap.appendChild(gate);
+
+  gate.onclick = () => {
+    // user gesture → try play; catch any block
+    const p = video.play();
+    if (p && typeof p.catch === 'function') {
+      p.catch(err => {
+        console.warn('[Video] play() rejected', err);
+        gate.remove();
+        // Fallback: open in new tab
+        const a = document.createElement('a');
+        a.href = src; a.target = '_blank';
+        a.textContent = "Open video in a new tab";
+        a.style.cssText = "display:inline-block;margin-top:8px;color:#00ffff;text-decoration:underline;";
+        wrap.appendChild(a);
+      });
+    }
+  };
+
+  video.addEventListener('ended', () => { if (onEnded) onEnded(); });
+  video.addEventListener('error', () => {
+    console.warn('[Video] media error:', video.error);
+    gate.remove();
+    const a = document.createElement('a');
+    a.href = src; a.target = '_blank';
+    a.textContent = "Open video in a new tab";
+    a.style.cssText = "display:inline-block;margin-top:8px;color:#00ffff;text-decoration:underline;";
+    wrap.appendChild(a);
+  });
+
+  return {video, wrap};
+}
+
+function getHomeEl() {
+  // Use the overlay itself (not its parent!)
+  return document.getElementById('overlay-content')
+      || document.getElementById('overlay')
+      || document.getElementById('home')
+      || document.getElementById('homepage');
+  }
+  function getGameEl() { return $id('game-container'); }
+
+  function readSave() { try { return JSON.parse(localStorage.getItem(SAVE_KEY)); } catch { return null; } }
+  function writeSave(o){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(o)); } catch {} }
+
+  function scenesMap() {
+    if (window.scenes) return window.scenes;
+    try { return (typeof scenes !== 'undefined') ? scenes : null; } catch { return null; }
+  }
+  function sceneExists(id) {
+    const sm = scenesMap();
+    if (!sm || !id) return false;
+    if (Array.isArray(sm)) return sm.some(x => x && x.id === id);
+    return !!sm[id];
+  }
+  function currentSceneMeta() {
+    const sm = scenesMap();
+    const id = window.currentSceneId;
+    return (sm && id) ? sm[id] : null;
+  }
+
+  function showHome() {
+    const home = getHomeEl(), game = getGameEl();
+    if (home) home.style.display = '';
+    if (game) game.style.display = 'none';
+  }
+  function hideHome() {
+    const home = getHomeEl(), game = getGameEl();
+    if (home) home.style.display = 'none';
+    if (game) game.style.display = 'block';
+  }
+
+  function renderedSomething() {
+    const game = getGameEl();
+    if (!game) return false;
+
+    // visible children?
+    if ([...game.children].some(n => n && n.offsetParent !== null)) return true;
+
+    const vid = $id('scene-video');
+    const img = $id('scene-image')?.querySelector('img');
+    const txt = $id('scene-text');
+
+    const featureIds = [
+      'iamc-ui','video-choice-wrap','video-multi-question-options','video-multi-audio-question-ui',
+      'sceneFillInTheBlank','sentence-scramble','dashboard-wrap','hangman','email-challenge-container',
+      'buckets','hotspots','particle-swapper','conj-race','survivor-quiz'
+    ];
+    const featurePresent = featureIds.some(id => {
+      const el = $id(id);
+      return el && el.offsetParent !== null;
+    });
+
+    // If the current scene is a bare text scene, require actual content
+    const meta = currentSceneMeta();
+    const hasText = !!(txt && txt.textContent && txt.textContent.trim().length);
+    const hasImg  = !!img;
+    const hasVid  = !!vid;
+
+    if (meta && meta.type === 'text') {
+      return hasText || hasImg || hasVid || featurePresent;
+    }
+    return featurePresent || hasVid || hasImg || hasText;
+  }
+
+  function pollForRender(maxMs = 2500, stepMs = 80) {
+    return new Promise(resolve => {
+      const t0 = performance.now();
+      (function tick(){
+        if (renderedSomething()) return resolve(true);
+        if (performance.now() - t0 >= maxMs) return resolve(false);
+        setTimeout(tick, stepMs);
+      })();
+    });
+  }
+
+  function updateResumeBtn() {
+    const btn = $id('resume-btn');
+    if (!btn) return;
+    const last = readSave()?.lastScene;
+    const ok = !!last && sceneExists(last);
+    btn.disabled = !ok;
+    btn.onclick = ok ? tryResume : null;
+  }
+
+  async function tryResume() {
+    const saved = readSave();
+    let target = saved?.lastScene;
+
+    if (!target || !sceneExists(target)) {
+      console.warn('[Resume] No valid saved scene; showing Home.');
+      showHome(); updateResumeBtn(); return;
+    }
+
+    // Make sure game area is visible for loaders that measure layout
+    hideHome();
+
+    // Ensure loadScene is attached
+    if (typeof window.loadScene !== 'function') {
+      let tries = 0;
+      await new Promise(res => (function wait(){
+        if (typeof window.loadScene === 'function') return res();
+        if (tries++ > 200) return res();
+        setTimeout(wait, 30);
+      })());
+    }
+    if (typeof window.loadScene !== 'function') {
+      console.warn('[Resume] loadScene unavailable; showing Home.');
+      showHome(); updateResumeBtn(); return;
+    }
+
+    try {
+      window.loadScene(target);
+      const ok = await pollForRender(2500, 80);
+      if (!ok) {
+        console.warn('[Resume] Target scene failed to render; falling back to Home.');
+        showHome();
+      }
+    } catch (e) {
+      console.error('[Resume] Error resuming:', e);
+      showHome();
+    } finally {
+      updateResumeBtn();
+    }
+  }
+
+
+(function hookLoadScene() {
+  function install(orig) {
+    window.loadScene = function(id) {
+      const r = orig.apply(this, arguments);   // render the scene
+
+      // Resume-only bookkeeping (NO SCORM here)
+      try {
+        const saved = (window.readSave ? readSave() : {}) || {};
+        saved.lastScene = id;
+        if (window.progress) {
+          saved.flags    = window.progress.flags    || saved.flags || {};
+          saved.unlocked = Array.from(window.progress.unlocked || saved.unlocked || []);
+        }
+        if (typeof writeSave === 'function') writeSave(saved);
+        if (typeof updateResumeBtn === 'function') updateResumeBtn();
+      } catch (_) {}
+
+      return r;  // important: return after resume work
+    };
+    console.log('[Resume] loadScene hooked.');
+  }
+  if (typeof window.loadScene === 'function') {
+    install(window.loadScene);
+  } else {
+    let tries = 0;
+    (function wait(){
+      if (typeof window.loadScene === 'function') return install(window.loadScene);
+      if (tries++ > 200) return;
+      setTimeout(wait, 30);
+    })();
+  }
+})();
+
+
+
+  window.addEventListener('DOMContentLoaded', () => {
+    showHome();
+    updateResumeBtn();
+  });
+
+  // Dev helper
+  window.resetProgressToHome = function () {
+    localStorage.removeItem(SAVE_KEY);
+    showHome();
+    updateResumeBtn();
+  };
+})();
+
+/* Brand signature (console + DOM comment) */
+(function(){
+  const brand = "xavethewhales-games";
+  const year  = new Date().getFullYear();
+  try {
+    console.log("%cBuilt by "+brand+" · © "+year,
+      "background:#00ffff;color:#000;font-weight:700;padding:2px 6px;border-radius:6px");
+    document.body.appendChild(document.createComment(" Built by "+brand+" · © "+year+" "));
+  } catch(_) {}
+})();
+
+  
+
+</script>
+
+</body>
+</html>
